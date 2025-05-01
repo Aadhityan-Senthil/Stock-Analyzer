@@ -8,13 +8,6 @@ import streamlit as st
 
 @st.cache_data(ttl=3600)
 def fetch_stock_data(symbol, start, end):
-    from datetime import datetime
-
-    # Ensure end date is not in the future
-    today = datetime.today().strftime('%Y-%m-%d')
-    if end > today:
-        end = today
-
     try:
         df = yf.download(symbol, start=start, end=end)
         return df if not df.empty else pd.DataFrame()
